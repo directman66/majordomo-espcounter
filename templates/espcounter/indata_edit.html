@@ -1,0 +1,259 @@
+                                     <!-- Table 'outdata' edit -->
+<form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
+[#if OK#]
+<div class="alert alert-success"><#LANG_DATA_SAVED#></div>
+[#endif OK#]
+[#if ERR#]
+<div class="alert alert-error"><#LANG_FILLOUT_REQURED#></div>
+[#endif ERR#]
+<fieldset>
+[#if ID=""#]
+<legend><#LANG_NEW_RECORD#></legend>
+[#endif ID#]
+<!-- DID (varchar) -->
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+   TITLE:(*)
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="title" value="[#TITLE#]" id="title"> 
+<small><small>Описание </small></small>
+</div> 
+</div>
+
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+   ФИО:(*)
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="fio" value="[#FIO#]" id="fio"> 
+<small><small>Фамилия Имя Отчество абонента </small></small>
+</div> 
+</div>
+
+<!-- TITLE (varchar) -->
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+Адрес:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="street" value="[#STREET#]" id="street">
+<small><small>Город, улица, строение...</small></small>
+</div>
+
+</div>
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+<small><small>Сетевой IP-адрес:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="ipaddr" value="[#IPADDR#]" id="ipaddr">
+<small>IP адрес сервера Ser2net или физического пребразователя rs-485-> Ethernet в формате 192.168.1.X</small></small>
+</div>
+
+</div>
+
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+Порт:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="port" value="[#PORT#]" id="port"></div>
+</div>
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+HEX адрес устройства:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="hexadr" value="[#HEXADR#]" id="port">
+
+			<label class="col-lg-3 control-label"[#if HEXADR2=="1"#] style="color:red;font-weight:bold"[#endif#]>
+[#if HEXADR2=="1"#] ВНИМАНИE! Строка  должна состоять только из шестнадцатеричных цифр.<br> [#endif#]
+			</label>
+
+
+<small><small> 1B,0E...</small></small><br>
+
+
+</div></div>
+
+
+<div class="form-group">
+ <label class="col-lg-4 control-label">
+Модель:
+ </label>
+ <div class="col-lg-4">   
+
+
+                        <select name="model" class="form-control" class="span2">
+                   <option value="230"[#if MODEL="230"#] selected[#endif#]>230
+                   <option value="234"[#if MODEL="234"#] selected[#endif#]>234
+                  </select>
+
+
+<small><small>модель счетчика</small></small>
+</div>
+</div>
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+Телефон:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="phone" value="[#PHONE#]" id="phone">
+<small><small>контактный телефон</small></small>
+</div>
+</div>
+
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+Login:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="login" value="[#LOGIN#]" id="login">
+<small><small>логин для входа в личный кабинет абонента</small></small>
+</div>
+</div>
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+Password:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="password" value="[#PASSWORD#]" id="password">
+<small><small>пароль для входа в личный кабинет абонента</small></small>
+</div>
+</div>
+
+<div class="form-group">
+ <div class="controls">
+ <label>Председатель:
+ <input type="checkbox" name="predsed" value="1"[#if PREDSED="1"#] checked[#endif#]> 
+</label>
+ </div>
+</div>
+
+[#if Ia1==""#] 
+[#else Ia#]
+
+<table width="100%" border=1 cellspacing="5" cellpadding="10"> 
+
+<tr> <td>
+<div > <label> SN:  </label> [#SN#] </div>
+</td><td>
+<div > <label> Версия ПО:  </label> [#PO#] </div>
+</td><td>
+<div > <label> Дата изготовления:  </label> [#MADEDT#] </div>
+</td></tr>
+
+
+<tr> <td>
+<div > <label > Ia1:  </label> [#Ia1#] </div>
+</td><td>
+<div > <label > Ia2:  </label> [#Ia2#] </div>
+</td><td>
+<div > <label > Ia3:  </label> [#Ia3#] </div>
+</td></tr>
+<tr> <td>
+<div > <label > Pv1:  </label> [#Pv1#] </div>
+</td><td>
+<div > <label > Pv2:  </label> [#Pv2#] </div>
+</td><td>
+<div > <label > Pv3:  </label> [#Pv3#] </div>
+</td></tr>
+<tr> <td>
+<div > <label > Cos1:  </label> [#Cos1#] </div>
+</td><td>
+<div > <label > Cos2:  </label> [#Cos2#] </div>
+</td><td>
+<div > <label > Cos3:  </label> [#Cos3#] </div>
+</td></tr>
+<tr> <td>
+<div > <label > Uv1:  </label> [#Uv1#] </div>
+</td><td>
+<div > <label > Uv2:  </label> [#Uv2#] </div>
+</td><td>
+<div > <label > Uv3:  </label> [#Uv3#] </div>
+</td></tr>
+<tr> <td>
+<div > <label > Общий счетчик:  </label> [#Total#] </div>
+</td><td>
+<div > <label > Тариф 1:  </label> [#Total1#] </div>
+</td><td>
+<div > <label > Тариф 2:  </label> [#Total2#] </div>
+</td></tr>
+
+<tr> <td>
+<div > <label > Потребление за день, Вт:  </label> [#DAY_WATT#] </div>
+</td><td>
+<div > <label > Расходы за день, руб.:  </label> [#DAY_RUB#] </div>
+</td><td>
+<div > <label >   </label>  </div>
+</td></tr>
+
+<tr> <td>
+<div > <label > Потребление за месяц, Вт:  </label> [#MONTH_WATT#] </div>
+</td><td>
+<div > <label > Расходы за месяц, руб.:  </label> [#MONTH_RUB#] </div>
+</td><td>
+<div > <label >   </label>  </div>
+</td></tr>
+
+<tr> <td>
+<div > <label > Потребление за год, Вт:  </label> [#YEAR_WATT#] </div>
+</td><td>
+<div > <label > Расходы за год, руб.:  </label> [#YEAR_RUB#] </div>
+</td><td>
+<div > <label >   </label>  </div>
+</td></tr>
+<tr> <td>
+<div > <label > CosT:  </label> [#CosT#] </div>
+</td><td>
+<div > <label > Слово состояния:  </label> [#STATEWORD#] </div>
+</td><td>
+<div > <label > Встроенное реле:  </label> [#STATE#] </div>
+
+
+</td></tr>
+
+
+</table>
+
+<br>
+
+[#endif Ia1#]
+
+
+
+<!-- LINKED_OBJECT (varchar) -->
+<div class="form-group">
+<!-- <label class="col-lg-3 control-label"[#if ERR_LINKED_OBJECT#] style="color:red;font-weight:bold"[#endif#]>
+ <#LANG_LINKED_OBJECT#>:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="linked_object" value="[#LINKED_OBJECT#]" id="linked_object"></div>
+</div>
+<!-- LINKED_PROPERTY (varchar) -->
+<!--<div class="form-group">
+ <label class="col-lg-3 control-label"[#if ERR_LINKED_PROPERTY#] style="color:red;font-weight:bold"[#endif#]>
+ <#LANG_LINKED_PROPERTY#>:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="linked_property" value="[#LINKED_PROPERTY#]" id="linked_property"></div>
+</div>
+-->
+
+
+
+<div class="form-actions">
+ [#if ID!=""#]
+ <button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_SUBMIT#></button>
+ [#else ID#]
+ <button type="submit" name="subm" value="Add" class="btn btn-primary"><#LANG_ADD#></button>
+ [#endif ID#]
+ <a href="?data_source=<#DATA_SOURCE#>" class="btn btn-default"><#LANG_CANCEL#></a>
+
+<input type="hidden" name="id" value="<#ID#>">
+<input type="hidden" name="view_mode" value="<#VIEW_MODE#>">
+<input type="hidden" name="edit_mode" value="<#EDIT_MODE#>">
+<input type="hidden" name="mode" value="update">
+<input type="hidden" name="data_source" value="<#DATA_SOURCE#>">
+</div>
+
+
+</fieldset>
+</form>
