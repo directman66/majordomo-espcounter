@@ -1,6 +1,6 @@
 <?php
 /**
-* mercury 
+* @author espcounter by sannikov dmitriy <sannikovdi@ya.ru>
 * @package project
 * @author Wizard <sergejey@gmail.com>
 * @copyright http://majordomo.smartliving.ru/ (c)
@@ -10,16 +10,16 @@
 //
 //ini_set('max_execution_time', '600');
 ini_set ('display_errors', 'off');
-class mercury extends module {
+class espcounter extends module {
 /**
 *
 * Module class constructor
 *
 * @access private
 */
-function mercury() {
-  $this->name="espcounter.class.php";
-  $this->title="EspCounter";
+function espcounter() {
+  $this->name="espcounter";
+  $this->title="ESPCounter";
   $this->module_category="<#LANG_SECTION_DEVICES#>";
   $this->checkInstalled();
 }
@@ -59,14 +59,6 @@ function getParams() {
   global $view_mode;
   global $edit_mode;
   global $tab;
-//	 global $title;
-//	 global $port;
-//	 global $hexadr;
-//	 global $ipaddr;
-//	 global $model;
-//	 global $fio;
-//	 global $phone;
-//	 global $street;
 
 
   if (isset($id)) {
@@ -114,13 +106,7 @@ function run() {
   $out['TAB']=$this->tab;
   $this->data=$out;
 
-if (gg('cycle_mercuryRun')) {
-        if ((time() - gg('cycle_mercuryRun')) < 360*2 ) {
-			$out['CYCLERUN'] = 1;
-		} else {
-			$out['CYCLERUN'] = 0;
-		}
-}
+
 
   $p=new parser(DIR_TEMPLATES.$this->name."/".$this->name.".html", $this->data, $this);
   $this->result=$p->result;
@@ -134,104 +120,46 @@ if (gg('cycle_mercuryRun')) {
 */
 function admin(&$out) {
 
-if (gg('cycle_mercuryRun')) {
-        if ((time() - gg('cycle_mercuryRun')) < 360*2 ) {
-			$out['CYCLERUN'] = 1;
-		} else {
-			$out['CYCLERUN'] = 0;
-		}
-}
+
 	
 
 
-//$cmd_rec = SQLSelectOne("SELECT VALUE FROM mercury_config where parametr='DEBUG'");
+
 $cachedVoiceDir = ROOT . 'cms/cached/';
-$file = $cachedVoiceDir . 'mercurydebug.txt';
+$file = $cachedVoiceDir . 'espcounterdebug.txt';
 
 $out['MSG_DEBUG']=file_get_contents($file);
 
-$cmd_rec = SQLSelectOne("SELECT VALUE FROM mercury_config where parametr='CURRENT'");
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM espcounter_config where parametr='CURRENT'");
 $out['CURRENT']=$cmd_rec['VALUE'];
 $currentid=$cmd_rec['VALUE'];
 
-$cmd_rec = SQLSelectOne("SELECT * FROM mercury_devices where FIO='$currentid'");
+$cmd_rec = SQLSelectOne("SELECT * FROM espcounter_devices where FIO='$currentid'");
 
 
-$out['MODEL']=$cmd_rec['MODEL'];		
-
-
-$out['FIO']=$cmd_rec['FIO'];		
-
-
- $out['TS2']=date('m/d/Y H:i:s',$cmd_rec['TS']);		
- $out['COUNTTS']=date('m/d/Y H:i:s',$cmd_rec['TS']);		
-
-// $out['P']=$cmd_rec['Pv1']+$cmd_rec['Pv2']+$cmd_rec['Pv3'];		
- $out['P']=$cmd_rec['PvT'];		
- $out['P1']=$cmd_rec['Pv1'];		
- $out['P2']=$cmd_rec['Pv2'];		
- $out['P3']=$cmd_rec['Pv3'];		
-
-
- $out['I']=$cmd_rec['IaT'];		
- $out['I1']=$cmd_rec['Ia1'];		
- $out['I2']=$cmd_rec['Ia2'];		
- $out['I3']=$cmd_rec['Ia3'];		
-
-
- $out['U1']=$cmd_rec['Uv1'];		
- $out['U2']=$cmd_rec['Uv2'];		
- $out['U3']=$cmd_rec['Uv3'];		
- $out['U']=$cmd_rec['U'];		
-
-$objectname='Mercury_'.$cmd_rec['ID'];		
-$out['OBJECTNAME']=$objectname;
-
-if (gg($objectname.'.FIO')!=$cmd_rec['FIO'])  sg($objectname.'.FIO',$cmd_rec['FIO']);		
-
-
-
- $out['S0']=$cmd_rec['Total'];		
- $out['S1']=$cmd_rec['Total1'];		
- $out['S2']=$cmd_rec['Total2'];	
-	
-
-
-$now=time();
-
-$out['MONTH_WATT']=round(getHistorySum($objectname.'.rashodt1', $now-2629743 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-2629743 ,$now));
-$out['MONTH_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-2629743 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-2629743 ,$now)*SETTINGS_APPMERCURY_T2));
-
-$out['DAY_WATT']=round(getHistorySum($objectname.'.rashodt1', $now-86400 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-86400 ,$now));
-$out['DAY_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-86400 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-86400 ,$now)*SETTINGS_APPMERCURY_T2));
-
-$out['WEEK_WATT']=round(getHistorySum($objectname.'.rashodt1', $now-604800 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-604800 ,$now));
-$out['WEEK_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-604800 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-604800 ,$now)*SETTINGS_APPMERCURY_T2));
-
-$out['YEAR_WATT']=round(getHistorySum($objectname.'.rashodt1', $now-31556926 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-31556926 ,$now));
-$out['YEAR_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-31556926 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-31556926 ,$now)*SETTINGS_APPMERCURY_T2));
+$out['ALLDEVICES']=$cmd_rec;		
 
 
 
 
 
  if ($this->view_mode=='get') {
-setGlobal('cycle_mercuryControl','start'); 
+
 
 $cachedVoiceDir = ROOT . 'cms/cached/';
-$file = $cachedVoiceDir . 'mercurydebug.txt';
+$file = $cachedVoiceDir . 'espcounterdebug.txt';
 $debug = file_get_contents($file);
 
 $debug = "Запускаем цикл по счетчикам <br>\n";
 file_put_contents($file, $debug);
 
-$cmd_rec = SQLSelect("SELECT ID FROM mercury_devices");
+$cmd_rec = SQLSelect("SELECT ID FROM espcounter_devices");
 foreach ($cmd_rec as $cmd_r)
 {
 $myid=$cmd_r['ID'];
 $debug .= "Начинаем запрашивать счетчик $myid. <br>\n";
 file_put_contents($file, $debug);
-$this->getpu($myid);
+$this->getcnt($myid);
 }
 
 }  
@@ -241,41 +169,16 @@ $this->getpu($myid);
  }
 
 if ($this->view_mode=='get_counters') {
-$this->getpu($this->id);
+$this->getcnt($this->id);
 $this->getrates($this->id);
 }  
-
-
-
-if ($this->view_mode=='turnon') {
-$this->turnon($this->id);
-}  
-
-if ($this->view_mode=='turnoff') {
-$this->turnoff($this->id);
-}  
-
-
-if ($this->view_mode=='getinfo') {
-$this->getinfo($this->id);
-}  
-
-  
 
  if ($this->view_mode=='indata_edit') {
    $this->editdevices($out, $this->id);
  }
 
- if ($this->view_mode=='updatecurrent') {
-   $this->updatecurrent($out);
- }
 
    $this->searchdevices($out, $this->id);
- if ($this->view_mode=='config'||$this->view_mode==''||$this->view_mode=='indata_edit') {
-//   $this->searchdevices($out, $this->id);
-   $this->getcurrent($out);
-
- }
 
 
  if ($this->view_mode=='indata_del') {
@@ -319,23 +222,25 @@ function updaterates($id) {
 $objectname='ESPCounter_'.$id;		
 $cmd_rec = SQLSelectOne("SELECT * FROM espcounter_devices where ID='$id'");
 $now=time();
-$cmd_rec['MONTH_KM']=round(getHistorySum($objectname.'.rashodt1', $now-2629743 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-2629743 ,$now));
-$cmd_rec['MONTH_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-2629743 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-2629743 ,$now)*SETTINGS_APPMERCURY_T2));
+//$cmd_rec['MONTH_KM']=round(getHistorySum($objectname.'.rashodt1', $now-2629743 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-2629743 ,$now));
+//$cmd_rec['MONTH_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-2629743 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-2629743 ,$now)*SETTINGS_APPMERCURY_T2));
 
-$cmd_rec['DAY_KM']=round(getHistorySum($objectname.'.rashodt1', $now-86400 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-86400 ,$now));
-$cmd_rec['DAY_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-86400 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-86400 ,$now)*SETTINGS_APPMERCURY_T2));
+//$cmd_rec['DAY_KM']=round(getHistorySum($objectname.'.rashodt1', $now-86400 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-86400 ,$now));
+//$cmd_rec['DAY_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-86400 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-86400 ,$now)*SETTINGS_APPMERCURY_T2));
 
-$cmd_rec['WEEK_KM']=round(getHistorySum($objectname.'.rashodt1', $now-604800 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-604800 ,$now));
-$cmd_rec['WEEK_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-604800 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-604800 ,$now)*SETTINGS_APPMERCURY_T2));
-
-$cmd_rec['YEAR_KM']=round(getHistorySum($objectname.'.rashodt1', $now-31556926 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-31556926 ,$now));
-$cmd_rec['YEAR_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-31556926 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-31556926 ,$now)*SETTINGS_APPMERCURY_T2));
+//$cmd_rec['WEEK_KM']=round(getHistorySum($objectname.'.rashodt1', $now-604800 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-604800 ,$now));
+//$cmd_rec['WEEK_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-604800 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-604800 ,$now)*SETTINGS_APPMERCURY_T2));
+//
+//$cmd_rec['YEAR_KM']=round(getHistorySum($objectname.'.rashodt1', $now-31556926 ,$now))+round(getHistorySum($objectname.'.rashodt2', $now-31556926 ,$now));
+//$cmd_rec['YEAR_RUB']=(round(getHistorySum($objectname.'.rashodt1', $now-31556926 ,$now)*SETTINGS_APPMERCURY_T1))+(round(getHistorySum($objectname.'.rashodt2', $now-31556926 ,$now)*SETTINGS_APPMERCURY_T2));
 SQLUpdate('espcounter_devices',$cmd_rec);
 }
 
 function processSubscription($event_name, $details='') {
   if ($event_name=='HOURLY') {
+		$this->getcnt();
 		$this->getrates();
+
   }
  }	
  
@@ -427,59 +332,6 @@ function usual(&$out) {
 *
 * @access public
 */
-
-
-
- 
- function processCycle() {
-//   $every=$this->config['EVERY'];
-
-
-
-$cmd_rec = SQLSelectOne("SELECT VALUE FROM espcounter_config where parametr='ENABLE'");
-$enable=$cmd_rec['VALUE'];
-
-$enable=1;
-
-$cmd_rec = SQLSelectOne("SELECT VALUE FROM espcounter_config where parametr='EVERY'");
-$every=$cmd_rec['VALUE'];
-
-
-$cmd_rec = SQLSelectOne("SELECT VALUE FROM espcounter_config where parametr='LASTCYCLE_TS'");
-$latest=$cmd_rec['VALUE'];
-
-   $tdev = time()-$latest;
-   $has = $tdev>$every*60;
-   if ($tdev < 0) {$has = true;}
-   
-   if ($has) {  
-
-if ($enable==1) {
-
-
-$cachedVoiceDir = ROOT . 'cms/cached/';
-$file = $cachedVoiceDir . 'espcounter.txt';
-$debug = file_get_contents($file);
-
-$debug = "Запускаем цикл по счетчикам <br>\n";
-file_put_contents($file, $debug);
-
-$cmd_rec = SQLSelect("SELECT ID FROM espcounter_devices");
-foreach ($cmd_rec as $cmd_r)
-{
-$myid=$cmd_r['ID'];
-$debug .= "Начинаем запрашивать счетчик $myid. <br>\n";
-file_put_contents($file, $debug);
-$this->getpu($myid);
-$this->getrates($this->id);
-}
-
-
-
-}
-  } 
-  }
-
 
  function delete($id) {
   $rec=SQLSelectOne("SELECT * FROM espcounter_devices WHERE ID='$id'");
@@ -591,7 +443,7 @@ SQLExec("delete from classes where title = 'ESPCounter'");
 */
  function dbInstall($data = '') {
 
-setGlobal('cycle_espcounterAutoRestart','1');	 	 
+
 $classname='ESPCouner';
 addClass($classname); 
 
