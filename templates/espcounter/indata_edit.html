@@ -16,34 +16,14 @@
    TITLE:(*)
  </label>
  <div class="col-lg-4"><input type="text" class="form-control" name="title" value="[#TITLE#]" id="title"> 
-<small><small>Описание </small></small>
+<small><small>Наприер "Счетчик на кухне" </small></small>
 </div> 
 </div>
 
 
 <div class="form-group">
  <label class="col-lg-3 control-label">
-   ФИО:(*)
- </label>
- <div class="col-lg-4"><input type="text" class="form-control" name="fio" value="[#FIO#]" id="fio"> 
-<small><small>Фамилия Имя Отчество абонента </small></small>
-</div> 
-</div>
-
-<!-- TITLE (varchar) -->
-<div class="form-group">
- <label class="col-lg-3 control-label">
-Адрес:
- </label>
- <div class="col-lg-4"><input type="text" class="form-control" name="street" value="[#STREET#]" id="street">
-<small><small>Город, улица, строение...</small></small>
-</div>
-
-</div>
-
-<div class="form-group">
- <label class="col-lg-3 control-label">
-<small><small>Сетевой IP-адрес:
+<small><small>Сетевой IP-адрес контроллера:
  </label>
  <div class="col-lg-4"><input type="text" class="form-control" name="ipaddr" value="[#IPADDR#]" id="ipaddr">
 <small>IP адрес сервера Ser2net или физического пребразователя rs-485-> Ethernet в формате 192.168.1.X</small></small>
@@ -52,82 +32,14 @@
 </div>
 
 
-<div class="form-group">
- <label class="col-lg-3 control-label">
-Порт:
- </label>
- <div class="col-lg-4"><input type="text" class="form-control" name="port" value="[#PORT#]" id="port"></div>
-</div>
-
-<div class="form-group">
- <label class="col-lg-3 control-label">
-HEX адрес устройства:
- </label>
- <div class="col-lg-4"><input type="text" class="form-control" name="hexadr" value="[#HEXADR#]" id="port">
-
-			<label class="col-lg-3 control-label"[#if HEXADR2=="1"#] style="color:red;font-weight:bold"[#endif#]>
-[#if HEXADR2=="1"#] ВНИМАНИE! Строка  должна состоять только из шестнадцатеричных цифр.<br> [#endif#]
-			</label>
 
 
-<small><small> 1B,0E...</small></small><br>
 
 
-</div></div>
 
 
-<div class="form-group">
- <label class="col-lg-4 control-label">
-Модель:
- </label>
- <div class="col-lg-4">   
 
 
-                        <select name="model" class="form-control" class="span2">
-                   <option value="230"[#if MODEL="230"#] selected[#endif#]>230
-                   <option value="234"[#if MODEL="234"#] selected[#endif#]>234
-                  </select>
-
-
-<small><small>модель счетчика</small></small>
-</div>
-</div>
-
-<div class="form-group">
- <label class="col-lg-3 control-label">
-Телефон:
- </label>
- <div class="col-lg-4"><input type="text" class="form-control" name="phone" value="[#PHONE#]" id="phone">
-<small><small>контактный телефон</small></small>
-</div>
-</div>
-
-
-<div class="form-group">
- <label class="col-lg-3 control-label">
-Login:
- </label>
- <div class="col-lg-4"><input type="text" class="form-control" name="login" value="[#LOGIN#]" id="login">
-<small><small>логин для входа в личный кабинет абонента</small></small>
-</div>
-</div>
-
-<div class="form-group">
- <label class="col-lg-3 control-label">
-Password:
- </label>
- <div class="col-lg-4"><input type="text" class="form-control" name="password" value="[#PASSWORD#]" id="password">
-<small><small>пароль для входа в личный кабинет абонента</small></small>
-</div>
-</div>
-
-<div class="form-group">
- <div class="controls">
- <label>Председатель:
- <input type="checkbox" name="predsed" value="1"[#if PREDSED="1"#] checked[#endif#]> 
-</label>
- </div>
-</div>
 
 [#if Ia1==""#] 
 [#else Ia#]
