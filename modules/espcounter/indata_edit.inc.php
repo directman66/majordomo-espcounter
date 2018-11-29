@@ -17,9 +17,20 @@
    $ok=1;
   global $ipaddr;
   global $title;
+  global $n1;
+  global $n2;
+
+  global $d1;
+  global $d2;
+
 
    $rec['TITLE']=$title;
    $rec['IPADDR']=$ipaddr;
+
+   $rec['D1']=$d1;
+   $rec['D2']=$d2;
+
+
 
    
    //UPDATING RECORD
