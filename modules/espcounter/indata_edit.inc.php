@@ -6,79 +6,20 @@
   if ($this->owner->name=='panel') {
    $out['CONTROLPANEL']=1;
   }
+
   $table_name='espcounter_devices';
+//  $rec=SQLSelectOne("SELECT * FROM $table_name WHERE ID='$id' and IPADDR='$ipaddr'");
   $rec=SQLSelectOne("SELECT * FROM $table_name WHERE ID='$id'");
 
-if (ctype_xdigit($rec['HEXADR'])) {
-        $out['HEXADR2']=0;
-    } else {
-//        $out['HEXADR2']="ВНИМАНИ! Строка  должна состоять только из шестнадцатеричных цифр.";
-        $out['HEXADR2']=1;
-}
 
-//      $out['HEXADR2']=1;
-//sg('test.merk',$this->mode);
   if ($this->mode=='update') {
+
    $ok=1;
-  
- 
-	 global $title;
+  global $ipaddr;
+  global $title;
 
    $rec['TITLE']=$title;
-//sg('test.merktitle',$title);
-
-  
-
-	 global $port;
-   $rec['PORT']=$port;
-/*
-   if ($rec['PORT']=='') {
-    $out['ERR_PORT']=1;
-    $ok=0;
-   }
-*/
-
-	 global $hexadr;
-   $rec['HEXADR']=$hexadr;
-
-
-
-
-	 global $ipaddr;
    $rec['IPADDR']=$ipaddr;
-/*
-   if ($rec['IPADDR']=='') {
-    $out['ERR_IPADDR']=1;
-    $ok=0;
-   }
-*/
-
-	 global $model;
-   $rec['MODEL']=$model;
-
-	 global $fio;
-   $rec['FIO']=$fio;
-
-
-
-
-	 global $phone;
-   $rec['PHONE']=$phone;
-
-	 global $street;
-
-   $rec['STREET']=$street;
-
-  global $login;
-  $rec['LOGIN']=$login;
-
-  global $password;
-  $rec['PASSWORD']=$password;
-
-
-  global $predsed;
-  $rec['PREDSED']=$predsed;
-
 
    
    //UPDATING RECORD
