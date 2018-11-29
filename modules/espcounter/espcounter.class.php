@@ -9,7 +9,7 @@
 //
 //
 //ini_set('max_execution_time', '600');
-ini_set ('display_errors', 'off');
+//ini_set ('display_errors', 'off');
 class espcounter extends module {
 /**
 *
@@ -130,14 +130,14 @@ $file = $cachedVoiceDir . 'espcounterdebug.txt';
 
 $out['MSG_DEBUG']=file_get_contents($file);
 
-$cmd_rec = SQLSelectOne("SELECT VALUE FROM espcounter_config where parametr='CURRENT'");
-$out['CURRENT']=$cmd_rec['VALUE'];
-$currentid=$cmd_rec['VALUE'];
+//$cmd_rec = SQLSelectOne("SELECT VALUE FROM espcounter_config where parametr='CURRENT'");
+//$out['CURRENT']=$cmd_rec['VALUE'];
+//$currentid=$cmd_rec['VALUE'];
 
-$cmd_rec = SQLSelectOne("SELECT * FROM espcounter_devices where FIO='$currentid'");
+//$cmd_rec = SQLSelectOne("SELECT * FROM espcounter_devices where FIO='$currentid'");
 
 
-$out['ALLDEVICES']=$cmd_rec;		
+//$out['ALLDEVICES']=$cmd_rec;		
 
 
 
@@ -192,7 +192,7 @@ $this->getrates($this->id);
 
 
   if ($this->view_mode=='getrates') {
-   $this->getrates($this->id);
+//   $this->getrates($this->id);
   }
 
 
@@ -203,8 +203,11 @@ $this->getrates($this->id);
 
 
 function getrates($id) {
+/*
 
 if (!$id){
+
+
 
 $all_rec = SQLSelect("SELECT * FROM espcounter_devices");
 foreach ($all_rec as $rc) {
@@ -242,6 +245,7 @@ function processSubscription($event_name, $details='') {
 		$this->getrates();
 
   }
+*/
  }	
  
 
@@ -367,7 +371,7 @@ function usual(&$out) {
 //////////////////////////////////////////////
 //////////////////////////////////////////////
  function getcnt($id) {
-
+/*
 $rec=SQLSelectOne("SELECT * FROM espcouner_devices WHERE ID='$id'");
 
 $ip=$rec['IPADDR'];
@@ -381,6 +385,7 @@ $classname='ESPCounter';
 $objname=$classname.'_'.$id;
 
 addClassObject($classname,$objname);
+*/
 
  }
 //////////////////////////////////////////////
@@ -641,6 +646,7 @@ SQLUpdate('properties',$property); }
  espcounter_devices: WEEK_RUB varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: YEAR_KM varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: YEAR_RUB varchar(100) NOT NULL DEFAULT ''
+ espcounter_devices: LASTPING datetime
 
 EOD;
   parent::dbInstall($data);
@@ -660,22 +666,22 @@ null;
 
 $par['parametr'] = 'EVERY';
 $par['value'] = 30;		 
-SQLInsert('mercury_config', $par);				
+SQLInsert('espcounter_config', $par);				
 	
 $par['parametr'] = 'LASTCYCLE_TS';
 $par['value'] = "0";		 
-SQLInsert('mercury_config', $par);						
+SQLInsert('espcounter_config', $par);						
 
 $par['parametr'] = 'CURRENT';
 $par['value'] = "";		 
-SQLInsert('mercury_config', $par);						
+SQLInsert('espcounter_config', $par);						
 		
 $par['parametr'] = 'LASTCYCLE_TXT';
 $par['value'] = "0";		 
-SQLInsert('mercury_config', $par);						
+SQLInsert('espcounter_config', $par);						
 $par['parametr'] = 'DEBUG';
 $par['value'] = "";		 
-SQLInsert('mercury_config', $par);	
+SQLInsert('espcounter_config', $par);	
 }
 }
 
