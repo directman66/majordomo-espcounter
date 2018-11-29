@@ -1,4 +1,4 @@
-                                     <!-- Table 'outdata' edit -->
+                                   <!-- Table 'outdata' edit -->
 <form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
 [#if OK#]
 <div class="alert alert-success"><#LANG_DATA_SAVED#></div>
@@ -33,123 +33,7 @@
 
 
 
-
-
-
-
-
-
-
-
-[#if Ia1==""#] 
-[#else Ia#]
-
-<table width="100%" border=1 cellspacing="5" cellpadding="10"> 
-
-<tr> <td>
-<div > <label> SN:  </label> [#SN#] </div>
-</td><td>
-<div > <label> Версия ПО:  </label> [#PO#] </div>
-</td><td>
-<div > <label> Дата изготовления:  </label> [#MADEDT#] </div>
-</td></tr>
-
-
-<tr> <td>
-<div > <label > Ia1:  </label> [#Ia1#] </div>
-</td><td>
-<div > <label > Ia2:  </label> [#Ia2#] </div>
-</td><td>
-<div > <label > Ia3:  </label> [#Ia3#] </div>
-</td></tr>
-<tr> <td>
-<div > <label > Pv1:  </label> [#Pv1#] </div>
-</td><td>
-<div > <label > Pv2:  </label> [#Pv2#] </div>
-</td><td>
-<div > <label > Pv3:  </label> [#Pv3#] </div>
-</td></tr>
-<tr> <td>
-<div > <label > Cos1:  </label> [#Cos1#] </div>
-</td><td>
-<div > <label > Cos2:  </label> [#Cos2#] </div>
-</td><td>
-<div > <label > Cos3:  </label> [#Cos3#] </div>
-</td></tr>
-<tr> <td>
-<div > <label > Uv1:  </label> [#Uv1#] </div>
-</td><td>
-<div > <label > Uv2:  </label> [#Uv2#] </div>
-</td><td>
-<div > <label > Uv3:  </label> [#Uv3#] </div>
-</td></tr>
-<tr> <td>
-<div > <label > Общий счетчик:  </label> [#Total#] </div>
-</td><td>
-<div > <label > Тариф 1:  </label> [#Total1#] </div>
-</td><td>
-<div > <label > Тариф 2:  </label> [#Total2#] </div>
-</td></tr>
-
-<tr> <td>
-<div > <label > Потребление за день, Вт:  </label> [#DAY_WATT#] </div>
-</td><td>
-<div > <label > Расходы за день, руб.:  </label> [#DAY_RUB#] </div>
-</td><td>
-<div > <label >   </label>  </div>
-</td></tr>
-
-<tr> <td>
-<div > <label > Потребление за месяц, Вт:  </label> [#MONTH_WATT#] </div>
-</td><td>
-<div > <label > Расходы за месяц, руб.:  </label> [#MONTH_RUB#] </div>
-</td><td>
-<div > <label >   </label>  </div>
-</td></tr>
-
-<tr> <td>
-<div > <label > Потребление за год, Вт:  </label> [#YEAR_WATT#] </div>
-</td><td>
-<div > <label > Расходы за год, руб.:  </label> [#YEAR_RUB#] </div>
-</td><td>
-<div > <label >   </label>  </div>
-</td></tr>
-<tr> <td>
-<div > <label > CosT:  </label> [#CosT#] </div>
-</td><td>
-<div > <label > Слово состояния:  </label> [#STATEWORD#] </div>
-</td><td>
-<div > <label > Встроенное реле:  </label> [#STATE#] </div>
-
-
-</td></tr>
-
-
-</table>
-
-<br>
-
-[#endif Ia1#]
-
-
-
 <!-- LINKED_OBJECT (varchar) -->
-<div class="form-group">
-<!-- <label class="col-lg-3 control-label"[#if ERR_LINKED_OBJECT#] style="color:red;font-weight:bold"[#endif#]>
- <#LANG_LINKED_OBJECT#>:
- </label>
- <div class="col-lg-4"><input type="text" class="form-control" name="linked_object" value="[#LINKED_OBJECT#]" id="linked_object"></div>
-</div>
-<!-- LINKED_PROPERTY (varchar) -->
-<!--<div class="form-group">
- <label class="col-lg-3 control-label"[#if ERR_LINKED_PROPERTY#] style="color:red;font-weight:bold"[#endif#]>
- <#LANG_LINKED_PROPERTY#>:
- </label>
- <div class="col-lg-4"><input type="text" class="form-control" name="linked_property" value="[#LINKED_PROPERTY#]" id="linked_property"></div>
-</div>
--->
-
-
 
 <div class="form-actions">
  [#if ID!=""#]
