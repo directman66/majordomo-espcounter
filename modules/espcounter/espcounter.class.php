@@ -374,21 +374,80 @@ function usual(&$out) {
 //////////////////////////////////////////////
 //////////////////////////////////////////////
  function getcnt($id) {
-/*
-$rec=SQLSelectOne("SELECT * FROM espcouner_devices WHERE ID='$id'");
+
+$rec=SQLSelectOne("SELECT * FROM espcounter_devices WHERE ID='$id'");
 
 $ip=$rec['IPADDR'];
-$port=$rec['PORT'];
+
+//set_time_limit(10);
+//ob_implicit_flush(true);
+
+
+//$this->resethci();
+////$url="http://192.168.1.208/i2cgo?adr=50";
+
+
+
+$url="http://$ip/debug";
+
+$file = file_get_contents($url);
+//echo $file;
+$ar=explode (" ",strip_tags($file));
+$mac=substr($ar[1],0,12);
+
+//echo "<br><br>";
+
+//$url="http://$ip/idesp";
+
+//$file = file_get_contents($url);
+//echo $file;
+//echo "<br><br>";
+$url="http://$ip/sensors";
+$file = file_get_contents($url);
+//echo $file;
+
+$ar=explode(";",$file);
+$c1=explode(":",$ar[1])[1];
+$c2=explode(":",$ar[2])[1];
+$upd=date('d/m/y H:s');
+
+
+
+$rec=SQLSelectOne("SELECT * FROM espcounter_devices WHERE ID='$id'");
+$rec['MAC']=$mac;
+$rec['TS']=time();
+$rec['Total1']=$c1;
+$rec['Total2']=$c2;
+
+   
+   //UPDATING RECORD
+//sg('test.merk',$ok);
+
+    if ($rec['ID']) {
+     SQLUpdate('espcounter_devices', $rec); // update
+    } else {
+     $new_rec=1;
+     $rec['ID']=SQLInsert('espcounter_devices', $rec); // adding new record
+    }
+
+
+
+
+
+//Запись значений (пока в отсутствие веб-интерфейса) выполняется командами вида
+//IP-адрес/i2cgo?adr=50&set=00XXXXXX
+//adcX
+
 
 
 
 //создаем устройство
 
-$classname='ESPCounter';
-$objname=$classname.'_'.$id;
+//$classname='ESPCounter';
+//$objname=$classname.'_'.$id;
 
-addClassObject($classname,$objname);
-*/
+//addClassObject($classname,$objname);
+
 
  }
 //////////////////////////////////////////////
@@ -634,11 +693,16 @@ SQLUpdate('properties',$property); }
  espcounter_devices: ID int(10) unsigned NOT NULL auto_increment
  espcounter_devices: TITLE varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: IPADDR varchar(100) NOT NULL DEFAULT ''
+ espcounter_devices: MAC varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: PORT varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: SN varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: ONLINE varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: STATE varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: TS varchar(100) NOT NULL DEFAULT ''
+ espcounter_devices: N1 varchar(100) NOT NULL DEFAULT ''
+ espcounter_devices: N2 varchar(100) NOT NULL DEFAULT ''
+ espcounter_devices: D1 varchar(100) NOT NULL DEFAULT ''
+ espcounter_devices: D2 varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: Total1 varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: Total2 varchar(100) NOT NULL DEFAULT ''
  espcounter_devices: MONTH_KM varchar(100) NOT NULL DEFAULT ''
