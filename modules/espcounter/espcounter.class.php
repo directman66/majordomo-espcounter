@@ -168,27 +168,30 @@ $this->getcnt($myid);
   $out['SET_DATASOURCE']=1;
  }
 
+
+$this->searchdevices($out, $this->id);
+
 if ($this->view_mode=='get_counters') {
 $this->getcnt($this->id);
 $this->getrates($this->id);
 }  
+
+
 
  if ($this->view_mode=='indata_edit') {
    $this->editdevices($out, $this->id);
  }
 
 
-   $this->searchdevices($out, $this->id);
+
 
 
  if ($this->view_mode=='indata_del') {
    $this->delete($this->id);
-   $this->redirect("?data_source=$this->data_source&view_mode=node_edit&id=$pid&tab=indata");
+//   $this->redirect("?data_source=$this->data_source&view_mode=node_edit&id=$pid&tab=indata");
+   $this->redirect("?");
  }	
 
-  if ($this->view_mode=='indata_edit') {
-   $this->indata_edit($out, $this->id);
-  }
 
 
   if ($this->view_mode=='getrates') {
