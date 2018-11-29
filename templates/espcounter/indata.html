@@ -1,8 +1,11 @@
   <br/>
 <p>
-<a href="?view_mode=indata_edit&tab=config" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> <#LANG_ADD_NEW_RECORD#></a> 
+
 
 [#if VIEW_MODE="indata_edit"#]		[#inc indata_edit.html#] [#else#][#endif#]
+
+[#if VIEW_MODE=""#]		
+<a href="?view_mode=indata_edit&tab=config" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> <#LANG_ADD_NEW_RECORD#></a> 
 </p>
 <table width=100% border=0><tr>
 <td valign=top>
@@ -27,42 +30,44 @@
 <table  align=center class="table table-striped">
 <thead>
 <tr>
+<th>Название</th>  
+<th>IP</th>  
+<th>MAC</th>  
 
-<th>ФИО абонента</th>
-<th>Серийный номер</th>  
-<th>IP/Порт</th>  
-<th>Модель</th>   
+
+
 <th>Online</th>    
-<th>Сост.</th>    
-<th></th>    
-<th>IaT</th>    
-<th>PvT</th>   
- <th>U</th>
+<th>-</th>    
+<th>№ счетчика 1</th>    
+<th>Пок.счетчика 1</th>    
+<th>№ счетчика 2</th>    
+<th>Пок.счетчика 2</th>    
  <th>Обновлено</th>
 </tr>
 </thead>
 <tbody>
 [#begin RESULT#]
-<tr style="height:52px" class="hover_btn2">
- <td style="vertical-align:middle">
-   <a href="?view_mode=getinfo&id=[#ID#]&tab=config"  title="Обновить параметры счетчиков (состояние, sn)">
-   [#FIO#]   </a> <br>
-   [#STREET#]
- </td>
 
  <td style="vertical-align:middle">
-   [#SN#]  <br>  [#MADEDT#]
+   [#TITLE#] <br>
+
+
  </td>
 
 
  <td style="vertical-align:middle">
    [#IPADDR#] <br>
-   [#PORT#]  :  [#HEXADR#]
 
- </td>
+
+
+
  <td style="vertical-align:middle">
-   [#MODEL#]
+   [#MAC#] 
  </td>
+
+
+
+
 
  <td style="vertical-align:middle">
 	[#if ONLINE!=""#]
@@ -75,49 +80,39 @@
 		&nbsp;
 	[#endif#]
 
- </td>
-
  <td style="vertical-align:middle">
-	[#if STATE!=""#]
-		[#if STATE==1#]
-   <a href="?view_mode=turnoff&id=[#ID#]&tab=config" onClick="return confirm('Внимание!!! Данное действие ВЫКЛЮЧИТ реле счетчика. Вы действительно желаете продолжить? Пожалуйста подвтвердите.')" class="btn btn-default" title="Выключить">
-			<span class="label label-success" title="<#LANG_XIMI_APP_ONLINE#>">Вкл.</span> </a>
-		[#else#]
-   <a href="?view_mode=turnon&id=[#ID#]&tab=config" onClick="return confirm('Внимание!!! Данное действие ВКЛЮЧИТ реле счетчика. Вы действительно желаете продолжить? Пожалуйста подвтвердите.')" class="btn btn-default" title="Включить">
-			<span class="label label-warning" title="<#LANG_XIMI_APP_OFFLINE#>">Выкл.</span></a>
-		[#endif#]
-	[#else#]
-		&nbsp;
-	[#endif#]
-
 
  </td>
 
  <td style="vertical-align:middle">
-	[#STATEWORD#]
+   [#N1#] 
+ </td>
+
+
+ <td style="vertical-align:middle">
+   [#Total1#] 
+ </td>
+
+
+ <td style="vertical-align:middle">
+   [#N2#] 
  </td>
 
  <td style="vertical-align:middle">
-   [#IaT#]
- </td>
- <td style="vertical-align:middle">
-   [#PvT#]
- </td>
- <td style="vertical-align:middle">
-   [#U#]
+   [#Total2#]  
  </td>
 
  <td style="vertical-align:middle">
-   [#TS3#]
+	[#TS3#]
  </td>
+
 
  
  <td style="vertical-align:middle" width="1%" nowrap>
   <div style="width:120px">
   [#if "<#ACTION#>"=="admin"#]
-   <a href="?view_mode=getinfo&id=[#ID#]&tab=config"  title="Обновить параметры счетчиков (состояние, sn)"><i class="glyphicon glyphicon-download-alt"></i></a>
    <a href="?view_mode=get_counters&id=[#ID#]&tab=config" class="btn btn-default" title="Получить показания счетчика"><i class="glyphicon glyphicon-download-alt"></i></a>
-   <a href="?view_mode=indata_edit&id=[#ID#]&tab=config" class="btn btn-default" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
+   <a href="?view_mode=indata_edit&id=[#ID#]&tab=devcount" class="btn btn-default" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
    <a href="?view_mode=indata_del&id=[#ID#]&tab=config" onClick="return confirm('Are you sure? Please confirm.')" class="btn btn-default" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
   [#endif ACTION#]
   </div>
@@ -151,3 +146,5 @@
 [#endif RESULT#]
 <!-- / results -->
 </td></tr></table>
+
+[#endif#]
