@@ -1,150 +1,166 @@
-  <br/>
-<p>
+                                   <!-- Table 'outdata' edit -->
+<form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
+[#if OK#]
+<div class="alert alert-success"><#LANG_DATA_SAVED#></div>
+[#endif OK#]
+[#if ERR#]
+<div class="alert alert-error"><#LANG_FILLOUT_REQURED#></div>
+[#endif ERR#]
+<fieldset>
+[#if ID=""#]
+<legend><#LANG_NEW_RECORD#></legend>
+[#endif ID#]
+<!-- DID (varchar) -->
+
+	 <ul class="nav nav-tabs">
+
+<li [#if TAB=="" || TAB=="devcount" #] class="active" [#endif#]><a href="?data_source=<#DATA_SOURCE#>&view_mode=indata_edit&id=<#ID#>&tab=devcount"><span class="glyphicon glyphicon-list-alt"></span>Показания</a></li>
+<li [#if TAB=="devparam" #] class="active" [#endif#]><a href="?data_source=<#DATA_SOURCE#>&view_mode=indata_edit&id=<#ID#>&tab=devparam"><span class="glyphicon glyphicon-cog"></span> Настройки счетчика</a></li>
+</ul>
 
 
-[#if VIEW_MODE="indata_edit"#]		[#inc indata_edit.html#] [#else#][#endif#]
-
-[#if VIEW_MODE=""#]		
-<a href="?view_mode=indata_edit&tab=config" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> <#LANG_ADD_NEW_RECORD#></a> 
-</p>
-<table width=100% border=0><tr>
-<td valign=top>
-<!-- results -->
-[#if RESULT#]
-<!-- paging -->
-[#if PAGES#]
-<table border=0>
-<td align=right><b>Pages:</b>&nbsp;</td>
-[#begin PREVPAGE#]<td><a href="?view_mode=<#VIEW_MODE#>&mode=<#MODE#>&save_qry=1&page=[#NUM#]">&lt;&lt;&lt;</a></td>[#end PREVPAGE#]
-<td>
-[#begin PAGES#]
-[#if !SELECTED#]<a href="?view_mode=<#VIEW_MODE#>&mode=<#MODE#>&save_qry=1&page=[#NUM#]">[#else#]<b>[#endif#][#NUM#]</b></a>
-[#end PAGES#]
-</td>
-[#begin NEXTPAGE#]<td><a href="?view_mode=<#VIEW_MODE#>&mode=<#MODE#>&save_qry=1&page=[#NUM#]">&gt;&gt;&gt;</a></td>[#end NEXTPAGE#]
-</table>
-[#endif PAGES#]
-<!-- / paging -->
-<!-- search results (list) -->
-<form action="?" method="post" name="indata" style="padding:0px" class="form">
-<table  align=center class="table table-striped">
-<thead>
-<tr>
-<th>Название</th>  
-<th>IP</th>  
-<th>MAC</th>  
+[#if TAB="devcount"|| TAB=""#] 
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+   Номер счетчика 1:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="n1" value="[#N1#]" id="n1"> 
+</div> 
+</div>
 
 
-
-<th>Online</th>    
-<th>-</th>    
-<th>№ счетчика 1</th>    
-<th>Пок.счетчика 1</th>    
-<th>№ счетчика 2</th>    
-<th>Пок.счетчика 2</th>    
- <th>Обновлено</th>
-</tr>
-</thead>
-<tbody>
-[#begin RESULT#]
-
- <td style="vertical-align:middle">
-   [#TITLE#] <br>
-
-
- </td>
-
-
- <td style="vertical-align:middle">
-   [#IPADDR#] <br>
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+   Номер счетчика 1:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="n1" value="[#N1#]" id="n1"> 
+</div> 
+</div>
 
 
 
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+   Показания счетчика 1:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="t1" value="[#Total1#]" id="t1"> 
+</div> 
+</div>
 
- <td style="vertical-align:middle">
-   [#MAC#] 
- </td>
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+   Номер счетчика 2:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="n2" value="[#N2#]" id="n2"> 
+</div> 
+</div>
 
-
-
-
-
- <td style="vertical-align:middle">
-	[#if ONLINE!=""#]
-		[#if ONLINE==1#]
-			<span class="label label-success" title="<#LANG_XIMI_APP_ONLINE#>">Online</span>
-		[#else#]
-			<span class="label label-warning" title="<#LANG_XIMI_APP_OFFLINE#>">Offline</span>
-		[#endif#]
-	[#else#]
-		&nbsp;
-	[#endif#]
-
- <td style="vertical-align:middle">
-
- </td>
-
- <td style="vertical-align:middle">
-   [#N1#] 
- </td>
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+   Показания счетчика 2:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="t2" value="[#Total2#]" id="t2"> 
+</div> 
+</div>
 
 
- <td style="vertical-align:middle">
-   [#Total1#] 
- </td>
+<div class="form-actions">
+ [#if ID!=""#]
+ <button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_SUBMIT#></button>
+ [#else ID#]
+ <button type="submit" name="subm" value="Add" class="btn btn-primary"><#LANG_ADD#></button>
+ [#endif ID#]
+ <a href="?data_source=<#DATA_SOURCE#>" class="btn btn-default"><#LANG_CANCEL#></a>
 
-
- <td style="vertical-align:middle">
-   [#N2#] 
- </td>
-
- <td style="vertical-align:middle">
-   [#Total2#]  
- </td>
-
- <td style="vertical-align:middle">
-	[#TS3#]
- </td>
-
-
- 
- <td style="vertical-align:middle" width="1%" nowrap>
-  <div style="width:120px">
-  [#if "<#ACTION#>"=="admin"#]
-   <a href="?view_mode=get_counters&id=[#ID#]&tab=config" class="btn btn-default" title="Получить показания счетчика"><i class="glyphicon glyphicon-download-alt"></i></a>
-   <a href="?view_mode=indata_edit&id=[#ID#]&tab=devcount" class="btn btn-default" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
-   <a href="?view_mode=indata_del&id=[#ID#]&tab=config" onClick="return confirm('Are you sure? Please confirm.')" class="btn btn-default" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
-  [#endif ACTION#]
-  </div>
- </td>
-</tr>
-[#end RESULT#]
-</tbody>
-</table>
-<input type="hidden" name="data_source" value="<#DATA_SOURCE#>">
+<input type="hidden" name="id" value="<#ID#>">
 <input type="hidden" name="view_mode" value="<#VIEW_MODE#>">
-</form>
-<!-- / search results (list) -->
-<!-- paging -->
-[#if PAGES#]
-<table border=0>
-<td align=right><b>Pages:</b>&nbsp;</td>
-[#begin PREVPAGE#]<td><a href="?view_mode=<#VIEW_MODE#>&mode=<#MODE#>&save_qry=1&page=[#NUM#]">&lt;&lt;&lt;</a></td>[#end PREVPAGE#]
-<td>
-[#begin PAGES#]
-[#if !SELECTED#]<a href="?view_mode=<#VIEW_MODE#>&mode=<#MODE#>&save_qry=1&page=[#NUM#]">[#else#]<b>[#endif#][#NUM#]</b></a>
-[#end PAGES#]
-</td>
-[#begin NEXTPAGE#]<td><a href="?view_mode=<#VIEW_MODE#>&mode=<#MODE#>&save_qry=1&page=[#NUM#]">&gt;&gt;&gt;</a></td>[#end NEXTPAGE#]
+<input type="hidden" name="edit_mode" value="<#EDIT_MODE#>">
+<input type="hidden" name="mode" value="update">
+<input type="hidden" name="data_source" value="<#DATA_SOURCE#>">
+</div>
+
+[#endif#]
+
+
+
+
+[#if TAB="devparam"#] 
+
+<table>
+<tr><td></tr></tr>
 </table>
-[#endif PAGES#]
-<!-- / paging -->
-[#else RESULT#]
-<p>
-<font color="red"><#LANG_NO_RECORDS_FOUND#></font>
-</p>
-[#endif RESULT#]
-<!-- / results -->
-</td></tr></table>
+
+
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+   TITLE:(*)
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="title" value="[#TITLE#]" id="title"> 
+<small><small>Наприер "Счетчик на кухне" </small></small>
+</div> 
+</div>
+
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+Сетевой IP-адрес контроллера: </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="ipaddr" value="[#IPADDR#]" id="ipaddr">
+<small>IP адрес контроллера ESPCount в формате 192.168.1.X</small></small>
+</div>
+
+</div>
+
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+   Делитель 1:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="d1" value="[#D1#]" id="d1"> 
+<small>Цена деления (например, для счетчика воды – это вес импульса, как правило 10 литров/имп., для
+электросчетчика – это передаточное число имп./кВт*ч).</small></small>
+</div> 
+ <button type="submit" name="subm" value="Submit" class="btn btn-primary">Сохранить в контроллер</button>
+
+</div>
+
+<div class="form-group">
+ <label class="col-lg-3 control-label">
+   Делитель 2:
+ </label>
+ <div class="col-lg-4"><input type="text" class="form-control" name="d2" value="[#D2#]" id="d2"> 
+<small>Цена деления (например, для счетчика воды – это вес импульса, как правило 10 литров/имп., для
+электросчетчика – это передаточное число имп./кВт*ч).</small></small>
+</div> 
+</div>
+
+
+
+
+
+
+
+
+<!-- LINKED_OBJECT (varchar) -->
+
+<div class="form-actions">
+ [#if ID!=""#]
+ <button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_SUBMIT#></button>
+ [#else ID#]
+ <button type="submit" name="subm" value="Add" class="btn btn-primary"><#LANG_ADD#></button>
+ [#endif ID#]
+ <a href="?data_source=<#DATA_SOURCE#>" class="btn btn-default"><#LANG_CANCEL#></a>
+
+<input type="hidden" name="id" value="<#ID#>">
+<input type="hidden" name="view_mode" value="<#VIEW_MODE#>">
+<input type="hidden" name="edit_mode" value="<#EDIT_MODE#>">
+<input type="hidden" name="mode" value="update">
+<input type="hidden" name="data_source" value="<#DATA_SOURCE#>">
+</div>
+
+
+</fieldset>
+</form>
+
 
 [#endif#]
