@@ -174,6 +174,7 @@ $this->searchdevices($out, $this->id);
 if ($this->view_mode=='get_counters') {
 $this->getcnt($this->id);
 $this->getrates($this->id);
+$this->redirect("?");
 }  
 
 
@@ -340,6 +341,28 @@ function usual(&$out) {
 * @access public
 */
 
+	function processSubscription($event_name, $details='') {
+		if ($event_name=='HOURLY') {
+
+$cachedVoiceDir = ROOT . 'cms/cached/';
+$file = $cachedVoiceDir . 'espcounterdebug.txt';
+$debug = file_get_contents($file);
+
+$debug = "Запускаем цикл по счетчикам <br>\n";
+file_put_contents($file, $debug);
+
+$cmd_rec = SQLSelect("SELECT ID FROM espcounter_devices");
+foreach ($cmd_rec as $cmd_r)
+{
+$myid=$cmd_r['ID'];
+$debug .= "Начинаем запрашивать счетчик $myid. <br>\n";
+file_put_contents($file, $debug);
+$this->getcnt($myid);
+}
+}
+}
+
+
  function delete($id) {
   $rec=SQLSelectOne("SELECT * FROM espcounter_devices WHERE ID='$id'");
   // some action for related tables
@@ -478,7 +501,7 @@ $rec['Total2']=$c2;
 * @access private
 */
  function install($data='') {
-
+ subscribeToEvent($this->name, 'HOURLY');
   parent::install();
  }
 /**
@@ -497,7 +520,7 @@ SQLExec("delete from pvalues where property_id in (select id FROM properties whe
 SQLExec("delete from properties where object_id in (select id from objects where class_id = (select id from classes where title = 'ESPCounter'))");
 SQLExec("delete from objects where class_id = (select id from classes where title = 'ESPCounter')");
 SQLExec("delete from classes where title = 'ESPCounter'");	 
-
+unsubscribeFromEvent($this->name, 'HOURLY');
   parent::uninstall();
 
  }
