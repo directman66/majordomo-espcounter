@@ -310,17 +310,16 @@ $online=ping(processTitle($ip));
 else 
 {SQLexec("update espcounter_devices set ONLINE='0', LASTPING=".time()." where IPADDR='$ip'");}
 */
+
 $cmd='
-$online=ping(processTitle('.$ip.'));
+$online=ping(processTitle("'.$ip.'"));
 if ($online) 
-{SQLexec("update espcounter_devices set ONLINE="1", LASTPING=".time()." where IP='.$ip.'");} 
+{SQLexec("update espcounter_devices set ONLINE=1, LASTPING='.time().' where IP=\''.$ip.'\'");} 
 else 
-{SQLexec("update espcounter_devices set ONLINE="0", LASTPING=".time()." where IP='.$ip.'");}
-}
+{SQLexec("update espcounter_devices set ONLINE=0, LASTPING='.time().' where IP=\''.$ip.'\'");}
+
 ';
- SetTimeOut('espcounter_ping',$cmd, '10'); 
-
-
+ SetTimeOut('espcounter_ping',$cmd, '1'); 
 
 
 
