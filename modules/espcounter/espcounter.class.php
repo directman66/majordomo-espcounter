@@ -303,11 +303,27 @@ $ip=$mhdevices[$i]['IPADDR'];
 $lastping=$mhdevices[$i]['LASTPING'];
 //echo time()-$lastping;
 if (time()-$lastping>300) {
+/*
 $online=ping(processTitle($ip));
     if ($online) 
 {SQLexec("update espcounter_devices set ONLINE='1', LASTPING=".time()." where IPADDR='$ip'");} 
 else 
 {SQLexec("update espcounter_devices set ONLINE='0', LASTPING=".time()." where IPADDR='$ip'");}
+*/
+$cmd='
+$online=ping(processTitle('.$ip.'));
+if ($online) 
+{SQLexec("update espcounter_devices set ONLINE="1", LASTPING=".time()." where IP='.$ip.'");} 
+else 
+{SQLexec("update espcounter_devices set ONLINE="0", LASTPING=".time()." where IP='.$ip.'");}
+}
+';
+ SetTimeOut('espcounter_ping',$cmd, '10'); 
+
+
+
+
+
 }}
 
 
