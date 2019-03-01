@@ -9,7 +9,7 @@
 //
 //
 //ini_set('max_execution_time', '600');
-//ini_set ('display_errors', 'off');
+ini_set ('display_errors', 'off');
 class espcounter extends module {
 /**
 *
